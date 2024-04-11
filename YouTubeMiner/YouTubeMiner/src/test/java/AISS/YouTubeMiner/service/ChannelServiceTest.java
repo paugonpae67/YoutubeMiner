@@ -24,7 +24,4 @@ class ChannelServiceTest {
         Channel channel = service.findChannel("GoogleDevelopers");
         System.out.println("Funciono + " + channel + " :)");
     }
-
-
-
 }
