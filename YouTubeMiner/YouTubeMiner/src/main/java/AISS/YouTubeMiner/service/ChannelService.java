@@ -23,29 +23,11 @@ public class ChannelService {
     RestTemplate restTemplate;
     private final static String token = "AIzaSyDXPg4TzNK6g0cl3c3MWC5_k5Sq1JynN94";
 
-    public ChannelSnippet findChannel(String name){
-        String uri = "https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&forUsername=" + name + "&key=" + token;
-        return restTemplate.getForObject("https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&forUsername=GoogleDevelopers&key=AIzaSyDXPg4TzNK6g0cl3c3MWC5_k5Sq1JynN94", ChannelSnippet.class);
 
-
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.set("Authorization", "bearer " + token);
-//        HttpEntity<Channel> request = new HttpEntity<>(null, headers);
-//
-//        ResponseEntity<Channel> response = restTemplate.exchange(uri, HttpMethod.GET, request, Channel.class);
-//
-//        return response.getBody();
-    }
-    public List<VideoSnippet> findVideosChannel(String name){
-        String uri = "https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&forUsername=" +
-                name + "&key=" + token;
-
-        //HttpHeaders headers = new HttpHeaders();
-        //headers.set("Authorization", "Bearer " + token);
-        //HttpEntity<Channel> request = new HttpEntity<>(null, headers);
-
-        ResponseEntity<Channel> response = restTemplate.exchange(uri, HttpMethod.GET, null, Channel.class);
-
-        return Objects.requireNonNull(response.getBody()).getVideos();
+        public Channel findChannel(String name){
+        String uri = "https://youtube.googleapis.com/youtube/v3/channels?part=snippet&forUsername=" + name + "&key=" + token;
+        ChannelSearch channel= restTemplate.getForObject(uri, ChannelSearch.class);
+            assert channel != null;
+            return channel.getItems().get(0);
     }
 }

@@ -21,16 +21,10 @@ class ChannelServiceTest {
     @Test
     @DisplayName("Get a channel")
     void findChannel() {
-        ChannelSnippet channel = service.findChannel("GoogleDevelopers");
+        Channel channel = service.findChannel("GoogleDevelopers");
         System.out.println("Funciono + " + channel + " :)");
     }
 
-    @Test
-    @DisplayName("Get videos from a channel")
-    void findVideosChannel(String name) {
-        List<VideoSnippet> lista = service.findVideosChannel(name);
-        System.out.println("Funciono + " + lista + " ;)");
-    }
 
 
 }
