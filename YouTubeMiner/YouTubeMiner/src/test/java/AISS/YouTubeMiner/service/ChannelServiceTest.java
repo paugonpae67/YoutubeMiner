@@ -21,7 +21,7 @@ class ChannelServiceTest {
     @Test
     @DisplayName("Get a channel")
     void findChannel() {
-        ChannelSnippet channel = service.findChannel("GoogleDevelopers");
+        Channel channel = service.findChannel("GoogleDevelopers");
         System.out.println("Funciono + " + channel + " :)");
     }
 
