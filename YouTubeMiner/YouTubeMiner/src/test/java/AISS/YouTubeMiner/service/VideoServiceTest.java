@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class VideoServiceTest {
@@ -14,8 +16,8 @@ class VideoServiceTest {
     @Test
     @DisplayName("Get a video")
     void findVideos() {
-        VideoSnippet video= service.findVideos();
-        System.out.println("Funciona "+ video);
+        List<VideoSnippet> videos= service.findVideos("Ks-_Mh1QhMc");
+        System.out.println(videos);
 
     }
 }
