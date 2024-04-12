@@ -2,7 +2,12 @@ package AISS.YouTubeMiner.service;
 
 import AISS.YouTubeMiner.model.youtube.comment.Comment;
 import AISS.YouTubeMiner.model.youtube.comment.CommentSearch;
+import AISS.YouTubeMiner.model.youtube.videoSnippet.VideoSnippetSearch;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -17,8 +22,14 @@ public class CommentService {
 
     public List<Comment> findCommentsFromVideoId(String videoId){
         String uri = "https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=" + videoId+"&key=" + token;
-        CommentSearch comments = restTemplate.getForObject(uri, CommentSearch.class);
-        assert comments != null;
-        return comments.getItems();
+
+        HttpHeaders headers= new HttpHeaders();
+        headers.set("X-goog-api-key", token);
+
+        HttpEntity<CommentSearch> request = new HttpEntity<>(null,headers);
+        ResponseEntity<CommentSearch> response = restTemplate.exchange(uri, HttpMethod.GET, request, CommentSearch.class);
+
+        assert response.getBody() != null;
+        return response.getBody().getItems();
     }
 }

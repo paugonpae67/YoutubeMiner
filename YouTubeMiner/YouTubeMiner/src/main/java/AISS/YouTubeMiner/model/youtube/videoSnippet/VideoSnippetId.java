@@ -8,6 +8,10 @@ public class VideoSnippetId {
     @JsonProperty("videoId")
     private String videoId;
 
+    public VideoSnippetId(String videoId) {
+        this.videoId = videoId;
+    }
+
     @JsonProperty("videoId")
     public String getVideoId() {
         return videoId;

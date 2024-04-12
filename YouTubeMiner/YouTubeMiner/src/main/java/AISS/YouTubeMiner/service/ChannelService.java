@@ -4,6 +4,7 @@ import AISS.YouTubeMiner.model.youtube.channel.Channel;
 import AISS.YouTubeMiner.model.youtube.channel.ChannelSearch;
 import AISS.YouTubeMiner.model.youtube.channel.ChannelSnippet;
 import AISS.YouTubeMiner.model.youtube.videoSnippet.VideoSnippet;
+import AISS.YouTubeMiner.model.youtube.videoSnippet.VideoSnippetSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -25,9 +26,15 @@ public class ChannelService {
 
         public Channel findChannel(String name){
         String uri = "https://youtube.googleapis.com/youtube/v3/channels?part=snippet&forUsername=" + name + "&key=" + token;
-        ChannelSearch channel= restTemplate.getForObject(uri, ChannelSearch.class);
-        assert channel != null;
-        return channel.getItems().get(0);
+
+        HttpHeaders headers= new HttpHeaders();
+        headers.set("X-goog-api-key", token);
+
+        HttpEntity<ChannelSearch> request = new HttpEntity<>(null,headers);
+        ResponseEntity<ChannelSearch> response = restTemplate.exchange(uri, HttpMethod.GET, request, ChannelSearch.class);
+
+        assert response.getBody() != null;
+        return response.getBody().getItems().get(0);
     }
 
 }
