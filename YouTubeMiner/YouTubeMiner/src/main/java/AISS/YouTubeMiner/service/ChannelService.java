@@ -22,9 +22,8 @@ import java.util.Objects;
 public class ChannelService {
     @Autowired
     RestTemplate restTemplate;
-    public final static String token = "AIzaSyDXPg4TzNK6g0cl3c3MWC5_k5Sq1JynN94";
-
-        public Channel findChannel(String name){
+    private final static String token = "AIzaSyDXPg4TzNK6g0cl3c3MWC5_k5Sq1JynN94";
+    public Channel findChannel(String name){
         String uri = "https://youtube.googleapis.com/youtube/v3/channels?part=snippet&forUsername=" + name + "&key=" + token;
 
         HttpHeaders headers= new HttpHeaders();
