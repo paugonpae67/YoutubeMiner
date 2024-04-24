@@ -29,10 +29,7 @@ public class TransformVideo {
         List<Caption> listaCaption= new LinkedList<>();
 
         for(int i=0; i< video.getCaptions().size(); i++){
-            Caption captionFinal= new Caption();
-            captionFinal.setId(video.getCaptions().get(i).getId());
-            captionFinal.setName(video.getCaptions().get(i).getSnippet().getName());
-            captionFinal.setLanguage(video.getCaptions().get(i).getSnippet().getLanguage());
+            Caption captionFinal= TransformCaption.transformCaption(video.getCaptions().get(i));
             listaCaption.add(captionFinal);
         }
         return listaCaption;
@@ -41,15 +38,7 @@ public class TransformVideo {
     private static List<Comment> parseoComment(VideoSnippet video){
         List<Comment> listaComment= new LinkedList<>();
         for(int i=0; i<video.getComments().size(); i++){
-            Comment commentFinal = new Comment();
-            commentFinal.setId(video.getComments().get(i).getCommentSnippet().getTopLevelComment().getId());
-            User autorFinal= new User();
-            autorFinal.setName(video.getComments().get(i).getCommentSnippet().getTopLevelComment().getSnippet().getAuthorDisplayName());
-            autorFinal.setUser_link(video.getComments().get(i).getCommentSnippet().getTopLevelComment().getSnippet().getAuthorChannelUrl());
-            autorFinal.setPicture_link(video.getComments().get(i).getCommentSnippet().getTopLevelComment().getSnippet().getAuthorProfileImageUrl());
-            commentFinal.setAuthor(autorFinal);
-            commentFinal.setText(video.getComments().get(i).getCommentSnippet().getTopLevelComment().getSnippet().getTextOriginal());
-            commentFinal.setCreatedOn(video.getComments().get(i).getCommentSnippet().getTopLevelComment().getSnippet().getPublishedAt());
+            Comment commentFinal = TransformComment.transformComment(video.getComments().get(i).getCommentSnippet());
             listaComment.add(commentFinal);
         }
         return listaComment;
