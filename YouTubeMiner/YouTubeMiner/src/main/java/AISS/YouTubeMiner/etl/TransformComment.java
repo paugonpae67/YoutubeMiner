@@ -6,18 +6,18 @@ import AISS.YouTubeMiner.model.youtube.comment.CommentSnippet;
 
 public class TransformComment {
 
-    public static Comment transformComment(CommentSnippet comment){
+    public static Comment transformComment(AISS.YouTubeMiner.model.youtube.comment.Comment comment){
         Comment commentFinal= new Comment();
-        commentFinal.setId(comment.getTopLevelComment().getId());
+        commentFinal.setId(comment.getCommentSnippet().getTopLevelComment().getId());
 
         User autorFinal= new User();
-        autorFinal.setName(comment.getTopLevelComment().getSnippet().getAuthorDisplayName());
-        autorFinal.setUser_link(comment.getTopLevelComment().getSnippet().getAuthorChannelUrl());
-        autorFinal.setPicture_link(comment.getTopLevelComment().getSnippet().getAuthorProfileImageUrl());
+        autorFinal.setName(comment.getCommentSnippet().getTopLevelComment().getSnippet().getAuthorDisplayName());
+        autorFinal.setUser_link(comment.getCommentSnippet().getTopLevelComment().getSnippet().getAuthorChannelUrl());
+        autorFinal.setPicture_link(comment.getCommentSnippet().getTopLevelComment().getSnippet().getAuthorProfileImageUrl());
         commentFinal.setAuthor(autorFinal);
 
-        commentFinal.setText(comment.getTopLevelComment().getSnippet().getTextOriginal());
-        commentFinal.setCreatedOn(comment.getTopLevelComment().getSnippet().getPublishedAt());
+        commentFinal.setText(comment.getCommentSnippet().getTopLevelComment().getSnippet().getTextOriginal());
+        commentFinal.setCreatedOn(comment.getCommentSnippet().getTopLevelComment().getSnippet().getPublishedAt());
         return commentFinal;
 
     }

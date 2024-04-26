@@ -20,7 +20,7 @@ public class VideoService {
     @Autowired
     RestTemplate restTemplate;
     private final static String token = "AIzaSyDXPg4TzNK6g0cl3c3MWC5_k5Sq1JynN94";
-    public VideoSnippet findVideos(String videoId){
+    public VideoSnippet findVideo(String videoId){
         String uri= "https://youtube.googleapis.com/youtube/v3/videos?part=snippet&id=" +videoId +"&key=" + token;
 
         HttpHeaders headers= new HttpHeaders();
@@ -31,6 +31,19 @@ public class VideoService {
 
         assert response.getBody() != null;
         return response.getBody().getItems().get(0);
+    }
+
+    public List<VideoSnippet> findVideos(String videoId){
+        String uri= "https://youtube.googleapis.com/youtube/v3/videos?part=snippet&id=" +videoId +"&key=" + token;
+        HttpHeaders headers= new HttpHeaders();
+        headers.set("X-goog-api-key", token);
+
+        HttpEntity<VideoSnippetSearch> request = new HttpEntity<>(null,headers);
+        ResponseEntity<VideoSnippetSearch> response = restTemplate.exchange(uri, HttpMethod.GET, request, VideoSnippetSearch.class);
+
+        assert response.getBody() != null;
+        return response.getBody().getItems();
+
     }
 
 }

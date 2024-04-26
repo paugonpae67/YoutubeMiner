@@ -9,7 +9,7 @@ import java.util.List;
 
 public class TransformChannel {
 
-    public static Channel transformCaption(AISS.YouTubeMiner.model.youtube.channel.Channel channel){
+    public static Channel transformChannel(AISS.YouTubeMiner.model.youtube.channel.Channel channel){
         Channel channelFinal= new Channel();
         channelFinal.setId(channel.getId());
         channelFinal.setDescription(channel.getSnippet().getDescription());

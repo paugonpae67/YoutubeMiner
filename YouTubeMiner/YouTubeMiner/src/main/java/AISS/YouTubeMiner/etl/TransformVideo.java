@@ -38,7 +38,7 @@ public class TransformVideo {
     private static List<Comment> parseoComment(VideoSnippet video){
         List<Comment> listaComment= new LinkedList<>();
         for(int i=0; i<video.getComments().size(); i++){
-            Comment commentFinal = TransformComment.transformComment(video.getComments().get(i).getCommentSnippet());
+            Comment commentFinal = TransformComment.transformComment(video.getComments().get(i));
             listaComment.add(commentFinal);
         }
         return listaComment;
