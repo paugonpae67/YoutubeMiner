@@ -13,8 +13,12 @@ public class Channel {
     private String id;
     @JsonProperty("snippet")
     private ChannelSnippet snippet;
-
     // This attribute has been added manually
+
+    @JsonProperty("contentDetails")
+    private ContentDetails contentDetails;
+    // This attribute has been added manually
+
     @JsonProperty("videos")
     private List<VideoSnippet> videos;
 
@@ -49,6 +53,12 @@ public class Channel {
     public void setSnippet(ChannelSnippet snippet) {
         this.snippet = snippet;
     }
+
+    @JsonProperty("contentDetails")
+    public ContentDetails getContentDetails(){return contentDetails;}
+
+    @JsonProperty("contentDetails")
+    public void setContentDetails(ContentDetails contentDetails){ this.contentDetails=contentDetails;}
 
     @Override
     public String toString() {
