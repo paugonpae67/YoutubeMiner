@@ -36,18 +36,17 @@ public class ChannelController {
         AISS.YouTubeMiner.model.youtube.channel.Channel channelYoutube = channelService.findChannel(forUsername);
         Channel channel= TransformChannel.transformChannel(channelYoutube);
 
-        List<AISS.YouTubeMiner.model.youtube.videoSnippet.VideoSnippet> videosYoutube = videoService.findVideos(channelYoutube.getId());
+        List<AISS.YouTubeMiner.model.youtube.videoSnippet.VideoSnippet> videosYoutube = videoService.findVideos(forUsername);
         List<Video> videos = new LinkedList<>();
 
         for(AISS.YouTubeMiner.model.youtube.videoSnippet.VideoSnippet videoYoutube:videosYoutube){
             Video video= TransformVideo.transformVideo(videoYoutube);
-            List<Comment> comentarios = commentService.findCommentsFromVideoId(video.getId()).stream().map(TransformComment::transformComment).toList();
-            video.setComments(comentarios);
-            List<Caption> captions= captionService.findCaptionsFromVideo(videoYoutube.getId().getVideoId()).stream().map(TransformCaption::transformCaption).toList();
-            video.setCaptions(captions);
+            //List<Comment> comentarios = commentService.findCommentsFromVideoId(videoYoutube.getId().getVideoId()).stream().map(TransformComment::transformComment).toList();
+            //video.setComments(comentarios);
+            //List<Caption> captions= captionService.findCaptionsFromVideo(videoYoutube.getId().getVideoId()).stream().map(TransformCaption::transformCaption).toList();
+            //video.setCaptions(captions);
             videos.add(video);
         }
-
         channel.setVideos(videos);
         return channel;
     }
