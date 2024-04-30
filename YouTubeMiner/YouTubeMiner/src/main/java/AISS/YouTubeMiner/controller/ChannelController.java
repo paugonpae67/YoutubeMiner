@@ -61,7 +61,7 @@ public class ChannelController {
     @PostMapping("/{forUsername}")
     public Channel postChannel(@PathVariable String forUsername){
         Channel channel=findChannel(forUsername);
-        String uri = "https://localhost:8080/videominer/channels";
+        String uri = "http://localhost:8080/videominer/channels";
 
 
         HttpHeaders headers= new HttpHeaders();
