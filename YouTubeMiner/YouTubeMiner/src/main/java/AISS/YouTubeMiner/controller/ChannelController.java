@@ -41,10 +41,10 @@ public class ChannelController {
 
         for(AISS.YouTubeMiner.model.youtube.videoSnippet.VideoSnippet videoYoutube:videosYoutube){
             Video video= TransformVideo.transformVideo(videoYoutube);
-            //List<Comment> comentarios = commentService.findCommentsFromVideoId(videoYoutube.getId().getVideoId()).stream().map(TransformComment::transformComment).toList();
-            //video.setComments(comentarios);
-            //List<Caption> captions= captionService.findCaptionsFromVideo(videoYoutube.getId().getVideoId()).stream().map(TransformCaption::transformCaption).toList();
-            //video.setCaptions(captions);
+            List<Comment> comentarios = commentService.findCommentsFromVideoId(videoYoutube.getSnippet().getResourceId().getVideoId()).stream().map(TransformComment::transformComment).toList();
+            video.setComments(comentarios);
+            List<Caption> captions= captionService.findCaptionsFromVideo(videoYoutube.getSnippet().getResourceId().getVideoId()).stream().map(TransformCaption::transformCaption).toList();
+            video.setCaptions(captions);
             videos.add(video);
         }
         channel.setVideos(videos);

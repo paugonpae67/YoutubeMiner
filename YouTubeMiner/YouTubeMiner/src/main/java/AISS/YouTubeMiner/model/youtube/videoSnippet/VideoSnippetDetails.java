@@ -12,6 +12,17 @@ public class VideoSnippetDetails {
     @JsonProperty("description")
     private String description;
 
+    public ResourceId getResourceId() {
+        return resourceId;
+    }
+
+    public void setResourceId(ResourceId resourceId) {
+        this.resourceId = resourceId;
+    }
+
+    @JsonProperty("resourceId")
+    private ResourceId resourceId;
+
     @JsonProperty("publishedAt")
     public String getPublishedAt() {
         return publishedAt;

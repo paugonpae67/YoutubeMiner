@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -29,7 +30,10 @@ public class CommentService {
         HttpEntity<CommentSearch> request = new HttpEntity<>(null,headers);
         ResponseEntity<CommentSearch> response = restTemplate.exchange(uri, HttpMethod.GET, request, CommentSearch.class);
 
-        assert response.getBody() != null;
-        return response.getBody().getItems();
+        if(response.hasBody()) {
+            return response.getBody().getItems();
+        }else{
+            return new LinkedList<>();
+        }
     }
 }

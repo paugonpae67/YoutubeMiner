@@ -13,7 +13,7 @@ public class TransformVideo {
 
     public static Video transformVideo(VideoSnippet video){
         Video videoFinal= new Video();
-        videoFinal.setId(video.getId().getVideoId());
+        videoFinal.setId(video.getSnippet().getResourceId().getVideoId());
         videoFinal.setName(video.getSnippet().getTitle());
         videoFinal.setDescription(video.getSnippet().getDescription());
         videoFinal.setReleaseTime(video.getSnippet().getPublishedAt());
