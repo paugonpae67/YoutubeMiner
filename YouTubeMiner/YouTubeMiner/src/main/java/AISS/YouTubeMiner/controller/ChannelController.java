@@ -69,7 +69,6 @@ public class ChannelController {
         HttpEntity<Channel> request = new HttpEntity<>(channel,headers);
         ResponseEntity<Channel> response = restTemplate.exchange(uri, HttpMethod.POST, request, Channel.class);
 
-        assert response.getBody() != null;
         return response.getBody();
     }
  
