@@ -13,7 +13,12 @@ import AISS.YouTubeMiner.service.ChannelService;
 import AISS.YouTubeMiner.service.CommentService;
 import AISS.YouTubeMiner.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -29,6 +34,8 @@ public class ChannelController {
     CommentService commentService;
     @Autowired
     CaptionService captionService;
+    @Autowired
+    RestTemplate restTemplate;
     
     
     @GetMapping("/{forUsername}")
@@ -52,8 +59,18 @@ public class ChannelController {
     }
 
     @PostMapping("/{forUsername}")
-    public void postChannel(@PathVariable String forUsername){
+    public Channel postChannel(@PathVariable String forUsername){
         Channel channel=findChannel(forUsername);
+        String uri = "https://localhost:8080/videominer/channels";
+
+
+        HttpHeaders headers= new HttpHeaders();
+
+        HttpEntity<Channel> request = new HttpEntity<>(channel,headers);
+        ResponseEntity<Channel> response = restTemplate.exchange(uri, HttpMethod.POST, request, Channel.class);
+
+        assert response.getBody() != null;
+        return response.getBody();
     }
  
 }
