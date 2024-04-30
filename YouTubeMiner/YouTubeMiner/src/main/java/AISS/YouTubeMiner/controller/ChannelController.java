@@ -63,12 +63,13 @@ public class ChannelController {
         Channel channel=findChannel(forUsername);
         String uri = "http://localhost:8080/videominer/channels";
 
+        System.out.println(channel);
 
+;
         HttpHeaders headers= new HttpHeaders();
 
         HttpEntity<Channel> request = new HttpEntity<>(channel,headers);
         ResponseEntity<Channel> response = restTemplate.exchange(uri, HttpMethod.POST, request, Channel.class);
-
         return response.getBody();
     }
  
