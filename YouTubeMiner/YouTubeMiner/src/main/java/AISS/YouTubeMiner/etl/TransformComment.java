@@ -11,6 +11,7 @@ public class TransformComment {
         commentFinal.setId(comment.getCommentSnippet().getTopLevelComment().getId());
 
         User autorFinal= new User();
+        autorFinal.setId(comment.getCommentSnippet().getTopLevelComment().getSnippet().getAuthorChannelId().getValue());
         autorFinal.setName(comment.getCommentSnippet().getTopLevelComment().getSnippet().getAuthorDisplayName());
         autorFinal.setUser_link(comment.getCommentSnippet().getTopLevelComment().getSnippet().getAuthorChannelUrl());
         autorFinal.setPicture_link(comment.getCommentSnippet().getTopLevelComment().getSnippet().getAuthorProfileImageUrl());
