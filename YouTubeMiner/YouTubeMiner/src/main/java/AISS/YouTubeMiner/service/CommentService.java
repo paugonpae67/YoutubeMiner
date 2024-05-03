@@ -23,9 +23,7 @@ public class CommentService {
 
     public List<CommentYouTube> findCommentsFromVideoId(String videoId, Integer maxComments) throws DisableCommentException {
         try{
-            String uri;
-            if(maxComments == null) uri = "https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=" + videoId+"&maxResults=10&key=" + token;
-            else uri = "https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=" + videoId+"&maxResults="+maxComments+"&key=" + token;
+            String uri = "https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=" + videoId+"&maxResults="+maxComments+"&key=" + token;
             HttpHeaders headers= new HttpHeaders();
             headers.set("X-goog-api-key", token);
 

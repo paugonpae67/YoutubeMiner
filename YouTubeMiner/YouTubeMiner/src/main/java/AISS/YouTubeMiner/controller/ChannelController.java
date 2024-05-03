@@ -69,12 +69,15 @@ public class ChannelController {
         ChannelYouTube channelYoutube = channelService.findChannel(forUsername);
         Channel channel= TransformChannel.transformChannel(channelYoutube);
 
-        List<AISS.YouTubeMiner.model.youtube.videoSnippet.VideoSnippet> videosYoutube = videoService.findVideos(forUsername,sizeVideo);
+        Integer maxVideo = sizeVideo==null? 10 : sizeVideo;
+        Integer maxComment = sizeComment==null? 10: sizeComment;
+
+        List<AISS.YouTubeMiner.model.youtube.videoSnippet.VideoSnippet> videosYoutube = videoService.findVideos(forUsername,maxVideo);
         List<Video> videos = new LinkedList<>();
 
         for(AISS.YouTubeMiner.model.youtube.videoSnippet.VideoSnippet videoYoutube:videosYoutube){
             Video video= TransformVideo.transformVideo(videoYoutube);
-            List<Comment> comentarios = commentService.findCommentsFromVideoId(videoYoutube.getSnippet().getResourceId().getVideoId(), sizeComment ).stream().map(TransformComment::transformComment).toList();
+            List<Comment> comentarios = commentService.findCommentsFromVideoId(videoYoutube.getSnippet().getResourceId().getVideoId(), maxComment ).stream().map(TransformComment::transformComment).toList();
             video.setComments(comentarios);
             List<Caption> captions= captionService.findCaptionsFromVideo(videoYoutube.getSnippet().getResourceId().getVideoId()).stream().map(TransformCaption::transformCaption).toList();
             video.setCaptions(captions);
@@ -99,12 +102,14 @@ public class ChannelController {
         if(sizeComment!=null && sizeVideo != null && (sizeComment < 0 || sizeVideo <0)){
             throw new MaxValueException();
         }
-        Channel channel=findChannel(forUsername, sizeVideo, sizeComment);
+        Integer maxVideo = sizeVideo==null? 10 : sizeVideo;
+        Integer maxComment = sizeComment==null? 10: sizeComment;
+        Channel channel=findChannel(forUsername, maxVideo, maxComment);
         String uri = "http://localhost:8080/videominer/channels";
 
         System.out.println(channel);
 
-;
+
         HttpHeaders headers= new HttpHeaders();
 
         HttpEntity<Channel> request = new HttpEntity<>(channel,headers);
