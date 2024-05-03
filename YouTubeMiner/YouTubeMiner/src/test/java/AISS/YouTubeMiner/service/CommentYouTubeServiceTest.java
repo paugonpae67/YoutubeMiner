@@ -1,5 +1,7 @@
 package AISS.YouTubeMiner.service;
 
+import AISS.YouTubeMiner.exception.DisableCommentException;
+import AISS.YouTubeMiner.exception.MaxValueException;
 import AISS.YouTubeMiner.model.youtube.comment.CommentYouTube;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,9 +17,9 @@ class CommentYouTubeServiceTest {
     CommentService service;
     @Test
     @DisplayName("Get comments from a video id")
-    void findCommentsFromVideoId() {
+    void findCommentsFromVideoId() throws MaxValueException, DisableCommentException {
         String prueba =  "_VB39Jo8mAQ";
-        List<CommentYouTube> commentYouTubes = service.findCommentsFromVideoId(prueba);
+        List<CommentYouTube> commentYouTubes = service.findCommentsFromVideoId(prueba, null);
         System.out.println("Funciono + " + commentYouTubes.toString() + " :)");
     }
 }
