@@ -5,6 +5,7 @@ import AISS.YouTubeMiner.etl.TransformChannel;
 import AISS.YouTubeMiner.etl.TransformComment;
 import AISS.YouTubeMiner.etl.TransformVideo;
 import AISS.YouTubeMiner.exception.DisableCommentException;
+import AISS.YouTubeMiner.exception.MaxValueException;
 import AISS.YouTubeMiner.model.videominer.Caption;
 import AISS.YouTubeMiner.model.videominer.Channel;
 import AISS.YouTubeMiner.model.videominer.Comment;
@@ -26,6 +27,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.server.RequestPath;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -57,16 +59,22 @@ public class ChannelController {
             @ApiResponse(responseCode = "403", content = {@Content(schema = @Schema)})})
 
     @GetMapping("/{forUsername}")
-    public Channel findChannel(@Parameter(description = "User's name of the channel ") @PathVariable String forUsername) throws DisableCommentException {
+    public Channel findChannel(@Parameter(description = "User's name of the channel ") @PathVariable String forUsername,
+                               @Parameter(description = "Optional parameter to limit the number of videos")@RequestParam(required = false, defaultValue = "10") Integer sizeVideo,
+                               @Parameter(description = "Optional parameter to limit the number of comments")@RequestParam(required = false, defaultValue = "10") Integer sizeComment
+                            ) throws DisableCommentException, MaxValueException {
+        if(sizeComment!=null && sizeVideo != null && (sizeComment < 0 || sizeVideo <0)){
+            throw new MaxValueException();
+        }
         ChannelYouTube channelYoutube = channelService.findChannel(forUsername);
         Channel channel= TransformChannel.transformChannel(channelYoutube);
 
-        List<AISS.YouTubeMiner.model.youtube.videoSnippet.VideoSnippet> videosYoutube = videoService.findVideos(forUsername);
+        List<AISS.YouTubeMiner.model.youtube.videoSnippet.VideoSnippet> videosYoutube = videoService.findVideos(forUsername,sizeVideo);
         List<Video> videos = new LinkedList<>();
 
         for(AISS.YouTubeMiner.model.youtube.videoSnippet.VideoSnippet videoYoutube:videosYoutube){
             Video video= TransformVideo.transformVideo(videoYoutube);
-            List<Comment> comentarios = commentService.findCommentsFromVideoId(videoYoutube.getSnippet().getResourceId().getVideoId()).stream().map(TransformComment::transformComment).toList();
+            List<Comment> comentarios = commentService.findCommentsFromVideoId(videoYoutube.getSnippet().getResourceId().getVideoId(), sizeComment ).stream().map(TransformComment::transformComment).toList();
             video.setComments(comentarios);
             List<Caption> captions= captionService.findCaptionsFromVideo(videoYoutube.getSnippet().getResourceId().getVideoId()).stream().map(TransformCaption::transformCaption).toList();
             video.setCaptions(captions);
@@ -84,8 +92,14 @@ public class ChannelController {
             @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema())}),
             @ApiResponse(responseCode = "403", content = {@Content(schema = @Schema)})})
     @PostMapping("/{forUsername}")
-    public Channel postChannel(@Parameter(description = "User's name of the channel")@PathVariable String forUsername) throws DisableCommentException {
-        Channel channel=findChannel(forUsername);
+    public Channel postChannel(@Parameter(description = "User's name of the channel")@PathVariable String forUsername,
+                                @Parameter(description = "Optional parameter to limit the number of videos")@RequestParam(required = false, defaultValue = "10") Integer sizeVideo,
+                               @Parameter(description = "Optional parameter to limit the number of comments")@RequestParam(required = false, defaultValue = "10") Integer sizeComment
+    ) throws DisableCommentException, MaxValueException {
+        if(sizeComment!=null && sizeVideo != null && (sizeComment < 0 || sizeVideo <0)){
+            throw new MaxValueException();
+        }
+        Channel channel=findChannel(forUsername, sizeVideo, sizeComment);
         String uri = "http://localhost:8080/videominer/channels";
 
         System.out.println(channel);
