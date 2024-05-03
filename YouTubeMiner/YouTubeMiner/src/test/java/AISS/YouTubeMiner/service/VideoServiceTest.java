@@ -14,6 +14,13 @@ class VideoServiceTest {
     @Autowired
     VideoService service;
 
+
+    @Test
+    @DisplayName("Get a video")
+    void findvideo(){
+        VideoSnippet res= service.findVideo("VVVfeDVYRzFPVjJQNnVaWjVGU005VHR3LnNxdE9sLXlJSFNB");
+    }
+
    @Test
     @DisplayName("Get videos from a channel")
     void findVideos() {

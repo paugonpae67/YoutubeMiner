@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
 
 /**
  * @author Juan C. Alonso
@@ -17,9 +18,11 @@ public class Caption {
     private String id;
 
     @JsonProperty("name")
+    @NotEmpty(message = "Caption name cannot be empty")
     private String name;
 
     @JsonProperty("language")
+    @NotEmpty(message = "Language parameter cannot be empty")
     private String language;
 
 

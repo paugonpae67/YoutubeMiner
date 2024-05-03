@@ -2,6 +2,7 @@ package AISS.YouTubeMiner.model.videominer;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 
 /**
  * @author Juan C. Alonso
@@ -22,12 +23,15 @@ public class User {
     private Long id;
 
     @JsonProperty("name")
+    @NotEmpty(message = "User name cannot be empty")
     private String name;
 
     @JsonProperty("user_link")
+    @NotEmpty(message = "User link cannot be empty")
     private String user_link;
 
     @JsonProperty("picture_link")
+    @NotEmpty(message = "User picture cannot be empty")
     private String picture_link;
 
     public Long getId() {
