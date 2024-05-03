@@ -4,6 +4,7 @@ import AISS.YouTubeMiner.etl.TransformCaption;
 import AISS.YouTubeMiner.etl.TransformChannel;
 import AISS.YouTubeMiner.etl.TransformComment;
 import AISS.YouTubeMiner.etl.TransformVideo;
+import AISS.YouTubeMiner.exception.DisableCommentException;
 import AISS.YouTubeMiner.model.videominer.Caption;
 import AISS.YouTubeMiner.model.videominer.Channel;
 import AISS.YouTubeMiner.model.videominer.Comment;
@@ -40,7 +41,7 @@ public class ChannelController {
     
     
     @GetMapping("/{forUsername}")
-    public Channel findChannel(@PathVariable String forUsername){
+    public Channel findChannel(@PathVariable String forUsername) throws DisableCommentException {
         ChannelYouTube channelYoutube = channelService.findChannel(forUsername);
         Channel channel= TransformChannel.transformChannel(channelYoutube);
 
@@ -60,7 +61,7 @@ public class ChannelController {
     }
 
     @PostMapping("/{forUsername}")
-    public Channel postChannel(@PathVariable String forUsername){
+    public Channel postChannel(@PathVariable String forUsername) throws DisableCommentException {
         Channel channel=findChannel(forUsername);
         String uri = "http://localhost:8080/videominer/channels";
 
