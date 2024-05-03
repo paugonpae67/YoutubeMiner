@@ -1,8 +1,7 @@
 package AISS.YouTubeMiner.service;
 
-import AISS.YouTubeMiner.model.youtube.caption.Caption;
+import AISS.YouTubeMiner.model.youtube.caption.CaptionYouTube;
 import AISS.YouTubeMiner.model.youtube.caption.CaptionSearch;
-import AISS.YouTubeMiner.model.youtube.videoSnippet.VideoSnippetSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -20,7 +19,7 @@ public class CaptionService {
     RestTemplate restTemplate;
 
     private final static String token = "AIzaSyDXPg4TzNK6g0cl3c3MWC5_k5Sq1JynN94";
-    public List<Caption> findCaptionsFromVideo(String videoId){
+    public List<CaptionYouTube> findCaptionsFromVideo(String videoId){
         String uri = "https://youtube.googleapis.com/youtube/v3/captions?part=snippet&videoId=" + videoId +"&key=" + token;
 
         HttpHeaders headers = new HttpHeaders();

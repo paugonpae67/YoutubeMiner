@@ -1,8 +1,8 @@
 package AISS.YouTubeMiner.model.youtube.videoSnippet;
 
 
-import AISS.YouTubeMiner.model.youtube.caption.Caption;
-import AISS.YouTubeMiner.model.youtube.comment.Comment;
+import AISS.YouTubeMiner.model.youtube.caption.CaptionYouTube;
+import AISS.YouTubeMiner.model.youtube.comment.CommentYouTube;
 import com.fasterxml.jackson.annotation.*;
 
 import java.util.ArrayList;
@@ -18,32 +18,32 @@ public class VideoSnippet {
 
     // These attributes have been manually added
     @JsonProperty("comments")
-    private List<Comment> comments;
+    private List<CommentYouTube> commentYouTubes;
 
     @JsonProperty("captions")
-    private List<Caption> captions;
+    private List<CaptionYouTube> captionYouTubes;
 
     public VideoSnippet() {
-        this.comments = new ArrayList<>();
-        this.captions = new ArrayList<>();
+        this.commentYouTubes = new ArrayList<>();
+        this.captionYouTubes = new ArrayList<>();
     }
 
     @JsonProperty("comments")
-    public List<Comment> getComments() {
-        return comments;
+    public List<CommentYouTube> getComments() {
+        return commentYouTubes;
     }
 
     @JsonProperty("comments")
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
+    public void setComments(List<CommentYouTube> commentYouTubes) {
+        this.commentYouTubes = commentYouTubes;
     }
 
     @JsonProperty("captions")
-    public List<Caption> getCaptions() { return captions; }
+    public List<CaptionYouTube> getCaptions() { return captionYouTubes; }
 
     @JsonProperty("captions")
-    public void setCaptions(List<Caption> captions) {
-        this.captions = captions;
+    public void setCaptions(List<CaptionYouTube> captionYouTubes) {
+        this.captionYouTubes = captionYouTubes;
     }
 
     @JsonProperty("id")

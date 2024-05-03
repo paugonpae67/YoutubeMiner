@@ -2,6 +2,7 @@ package AISS.YouTubeMiner.etl;
 
 import AISS.YouTubeMiner.model.videominer.Channel;
 import AISS.YouTubeMiner.model.videominer.Video;
+import AISS.YouTubeMiner.model.youtube.channel.ChannelYouTube;
 import AISS.YouTubeMiner.model.youtube.videoSnippet.VideoSnippet;
 
 import java.util.LinkedList;
@@ -9,13 +10,13 @@ import java.util.List;
 
 public class TransformChannel {
 
-    public static Channel transformChannel(AISS.YouTubeMiner.model.youtube.channel.Channel channel){
+    public static Channel transformChannel(ChannelYouTube channelYouTube){
         Channel channelFinal= new Channel();
-        channelFinal.setId(channel.getId());
-        channelFinal.setDescription(channel.getSnippet().getDescription());
-        channelFinal.setName(channel.getSnippet().getTitle());
-        channelFinal.setCreatedTime(channel.getSnippet().getPublishedAt());
-        channelFinal.setVideos(parseoVideos(channel.getVideos()));
+        channelFinal.setId(channelYouTube.getId());
+        channelFinal.setDescription(channelYouTube.getSnippet().getDescription());
+        channelFinal.setName(channelYouTube.getSnippet().getTitle());
+        channelFinal.setCreatedTime(channelYouTube.getSnippet().getPublishedAt());
+        channelFinal.setVideos(parseoVideos(channelYouTube.getVideos()));
         return channelFinal;
     }
 

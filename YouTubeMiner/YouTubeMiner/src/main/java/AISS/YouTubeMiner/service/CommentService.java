@@ -1,8 +1,7 @@
 package AISS.YouTubeMiner.service;
 
-import AISS.YouTubeMiner.model.youtube.comment.Comment;
+import AISS.YouTubeMiner.model.youtube.comment.CommentYouTube;
 import AISS.YouTubeMiner.model.youtube.comment.CommentSearch;
-import AISS.YouTubeMiner.model.youtube.videoSnippet.VideoSnippetSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -21,7 +20,7 @@ public class CommentService {
 
     private final static String token = "AIzaSyDXPg4TzNK6g0cl3c3MWC5_k5Sq1JynN94";
 
-    public List<Comment> findCommentsFromVideoId(String videoId){
+    public List<CommentYouTube> findCommentsFromVideoId(String videoId){
         String uri = "https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=" + videoId+"&key=" + token;
 
         HttpHeaders headers= new HttpHeaders();

@@ -8,6 +8,7 @@ import AISS.YouTubeMiner.model.videominer.Caption;
 import AISS.YouTubeMiner.model.videominer.Channel;
 import AISS.YouTubeMiner.model.videominer.Comment;
 import AISS.YouTubeMiner.model.videominer.Video;
+import AISS.YouTubeMiner.model.youtube.channel.ChannelYouTube;
 import AISS.YouTubeMiner.service.CaptionService;
 import AISS.YouTubeMiner.service.ChannelService;
 import AISS.YouTubeMiner.service.CommentService;
@@ -40,7 +41,7 @@ public class ChannelController {
     
     @GetMapping("/{forUsername}")
     public Channel findChannel(@PathVariable String forUsername){
-        AISS.YouTubeMiner.model.youtube.channel.Channel channelYoutube = channelService.findChannel(forUsername);
+        ChannelYouTube channelYoutube = channelService.findChannel(forUsername);
         Channel channel= TransformChannel.transformChannel(channelYoutube);
 
         List<AISS.YouTubeMiner.model.youtube.videoSnippet.VideoSnippet> videosYoutube = videoService.findVideos(forUsername);

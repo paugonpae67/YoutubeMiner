@@ -1,6 +1,5 @@
 package AISS.YouTubeMiner.service;
 
-import AISS.YouTubeMiner.model.youtube.channel.Channel;
 import AISS.YouTubeMiner.model.youtube.channel.ChannelSearch;
 import AISS.YouTubeMiner.model.youtube.videoSnippet.VideoSnippet;
 import AISS.YouTubeMiner.model.youtube.videoSnippet.VideoSnippetSearch;

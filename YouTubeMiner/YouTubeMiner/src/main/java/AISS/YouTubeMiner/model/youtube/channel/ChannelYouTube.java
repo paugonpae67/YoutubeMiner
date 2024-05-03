@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Channel {
+public class ChannelYouTube {
 
     @JsonProperty("id")
     private String id;
@@ -22,7 +22,7 @@ public class Channel {
     @JsonProperty("videos")
     private List<VideoSnippet> videos;
 
-    public Channel() {
+    public ChannelYouTube() {
         videos = new ArrayList<>();
     }
 
@@ -63,7 +63,7 @@ public class Channel {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(Channel.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
+        sb.append(ChannelYouTube.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("id");
         sb.append('=');
         sb.append(((this.id == null)?"<null>":this.id));
