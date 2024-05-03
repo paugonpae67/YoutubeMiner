@@ -14,6 +14,13 @@ import AISS.YouTubeMiner.service.CaptionService;
 import AISS.YouTubeMiner.service.ChannelService;
 import AISS.YouTubeMiner.service.CommentService;
 import AISS.YouTubeMiner.service.VideoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -24,6 +31,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.LinkedList;
 import java.util.List;
+@Tag(name= "Youtube", description =  "Yputube management API")
 @RestController
 @RequestMapping("/api/youtube/v3/channels")
 public class ChannelController {
@@ -39,9 +47,17 @@ public class ChannelController {
     @Autowired
     RestTemplate restTemplate;
     
-    
+    @Operation(
+            summary = "Retrieve a Youtube channel by UserName",
+            description= "Get a Youtube channel by specifying its id",
+            tags = {"channel", "get"})
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Youtube channel", content = {@Content(schema = @Schema(implementation = Channel.class), mediaType = "application/json")}),
+            @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema())}),
+            @ApiResponse(responseCode = "403", content = {@Content(schema = @Schema)})})
+
     @GetMapping("/{forUsername}")
-    public Channel findChannel(@PathVariable String forUsername) throws DisableCommentException {
+    public Channel findChannel(@Parameter(description = "User's name of the channel ") @PathVariable String forUsername) throws DisableCommentException {
         ChannelYouTube channelYoutube = channelService.findChannel(forUsername);
         Channel channel= TransformChannel.transformChannel(channelYoutube);
 
@@ -59,9 +75,16 @@ public class ChannelController {
         channel.setVideos(videos);
         return channel;
     }
-
+    @Operation(
+            summary = "Insert a Channel in VideoMiner",
+            description= "Add a new Youtube channel (looked by its UserName in YouTube) whose data is passed in the body of the request in Json format",
+            tags = {"channels", "post"})
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Youtube channel", content = {@Content(schema = @Schema(implementation = Channel.class), mediaType = "application/json")}),
+            @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema())}),
+            @ApiResponse(responseCode = "403", content = {@Content(schema = @Schema)})})
     @PostMapping("/{forUsername}")
-    public Channel postChannel(@PathVariable String forUsername) throws DisableCommentException {
+    public Channel postChannel(@Parameter(description = "User's name of the channel")@PathVariable String forUsername) throws DisableCommentException {
         Channel channel=findChannel(forUsername);
         String uri = "http://localhost:8080/videominer/channels";
 
