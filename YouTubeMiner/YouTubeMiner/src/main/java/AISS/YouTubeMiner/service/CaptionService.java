@@ -18,7 +18,7 @@ public class CaptionService {
     @Autowired
     RestTemplate restTemplate;
 
-    private final static String token = "AIzaSyDXPg4TzNK6g0cl3c3MWC5_k5Sq1JynN94";
+    private final static String token = "AIzaSyBuOr1tTp7kcvBLNjQ3M4aBJ0R9b3I736Y";
     public List<CaptionYouTube> findCaptionsFromVideo(String videoId){
         String uri = "https://youtube.googleapis.com/youtube/v3/captions?part=snippet&videoId=" + videoId +"&key=" + token;
 

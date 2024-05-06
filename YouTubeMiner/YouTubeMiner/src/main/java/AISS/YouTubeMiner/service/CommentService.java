@@ -19,7 +19,7 @@ public class CommentService {
     @Autowired
     RestTemplate restTemplate;
 
-    private final static String token = "AIzaSyDXPg4TzNK6g0cl3c3MWC5_k5Sq1JynN94";
+    private final static String token = "AIzaSyBuOr1tTp7kcvBLNjQ3M4aBJ0R9b3I736Y";
 
     public List<CommentYouTube> findCommentsFromVideoId(String videoId, Integer maxComments) throws DisableCommentException {
         try{

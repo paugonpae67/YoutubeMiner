@@ -19,7 +19,7 @@ public class VideoService {
 
     @Autowired
     RestTemplate restTemplate;
-    private final static String token = "AIzaSyDXPg4TzNK6g0cl3c3MWC5_k5Sq1JynN94";
+    private final static String token = "AIzaSyBuOr1tTp7kcvBLNjQ3M4aBJ0R9b3I736Y";
     public VideoSnippet findVideo(String videoId){
         String uri= "https://youtube.googleapis.com/youtube/v3/videos?part=snippet&id=" +videoId +"&key=" + token;
 
