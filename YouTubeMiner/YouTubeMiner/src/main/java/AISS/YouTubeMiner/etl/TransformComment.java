@@ -15,15 +15,10 @@ public class TransformComment {
         Comment commentFinal= new Comment();
         commentFinal.setId(commentYouTube.getCommentSnippet().getTopLevelComment().getId());
 
-        // Generamos un map clave valor que asocia cada authorId (String) una clave (Long) correspondiente en VideoMiner
         String authorId = commentYouTube.getCommentSnippet().getTopLevelComment().getSnippet().getAuthorChannelId().getValue();
 
-        num++;
-        map.put(num, authorId);
-        long[] x= map.entrySet().stream().filter(pareja -> pareja.getValue().equals(authorId)).mapToLong(c-> c.getKey()).toArray();
-
         User autorFinal= new User();
-        autorFinal.setId(x[0]);
+        autorFinal.setId(null);
         autorFinal.setName(commentYouTube.getCommentSnippet().getTopLevelComment().getSnippet().getAuthorDisplayName());
         autorFinal.setUser_link(commentYouTube.getCommentSnippet().getTopLevelComment().getSnippet().getAuthorChannelUrl());
         autorFinal.setPicture_link(commentYouTube.getCommentSnippet().getTopLevelComment().getSnippet().getAuthorProfileImageUrl());

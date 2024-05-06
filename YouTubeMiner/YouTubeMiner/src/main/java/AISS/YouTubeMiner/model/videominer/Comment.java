@@ -23,7 +23,7 @@ public class Comment {
     private String text;
 
     @JsonProperty("createdOn")
-    @PastOrPresent(message = "Comment creation time can not be in the future")
+    @NotEmpty(message="Created time cannot be null")
     private String createdOn;
 
     @JsonProperty("author")

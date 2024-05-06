@@ -33,7 +33,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.LinkedList;
 import java.util.List;
-@Tag(name= "Youtube", description =  "Yputube management API")
+@Tag(name= "Youtube", description =  "Youtube management API")
 @RestController
 @RequestMapping("/api/youtube/v3/channels")
 public class ChannelController {
