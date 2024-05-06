@@ -33,10 +33,10 @@ public class VideoService {
         return response.getBody().getItems().get(0);
     }
 
-    public List<VideoSnippet> findVideos(String userName, Integer maxVideo){
+    public List<VideoSnippet> findVideos(String id, Integer maxVideo){
         HttpHeaders headers= new HttpHeaders();
         headers.set("X-goog-api-key", token);
-        String playlistId=getPlaylistId(userName);
+        String playlistId=getPlaylistId(id);
         HttpEntity<VideoSnippetSearch> request = new HttpEntity<>(null,headers);
         String uri = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId="+playlistId+"&maxResults="+ maxVideo+"&key="+token;
         ResponseEntity<VideoSnippetSearch>response2 = restTemplate.exchange(uri, HttpMethod.GET, request, VideoSnippetSearch.class);
@@ -46,8 +46,8 @@ public class VideoService {
 
     }
 
-    public String getPlaylistId(String userName){
-        String uri= "https://youtube.googleapis.com/youtube/v3/channels?part=contentDetails&forUsername=" +userName +"&key=" + token;
+    public String getPlaylistId(String id){
+        String uri= "https://youtube.googleapis.com/youtube/v3/channels?part=contentDetails&id=" +id +"&key=" + token;
         HttpHeaders headers= new HttpHeaders();
         HttpEntity<ChannelSearch> request = new HttpEntity<>(null,headers);
         ResponseEntity<ChannelSearch> response = restTemplate.exchange(uri, HttpMethod.GET, request, ChannelSearch.class);

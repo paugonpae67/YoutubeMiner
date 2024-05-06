@@ -25,7 +25,7 @@ class VideoServiceTest {
     @DisplayName("Get videos from a channel")
     void findVideos() {
         String prueba ="Ks-_Mh1QhMc";
-        List<VideoSnippet> video= service.findVideos("GoogleDevelopers", 4);
+        List<VideoSnippet> video= service.findVideos("UC_x5XG1OV2P6uZZ5FSM9Ttw", 4);
         System.out.println("Funciona \n"+ video.toString());
 
     }

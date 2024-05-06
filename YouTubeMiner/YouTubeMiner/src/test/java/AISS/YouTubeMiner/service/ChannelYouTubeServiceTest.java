@@ -15,7 +15,7 @@ class ChannelYouTubeServiceTest {
     @Test
     @DisplayName("Get a channel")
     void findChannel() {
-        ChannelYouTube channelYouTube = service.findChannel("GoogleDevelopers");
+        ChannelYouTube channelYouTube = service.findChannel("UC_x5XG1OV2P6uZZ5FSM9Ttw");
         System.out.println("Funciono + " + channelYouTube + " :)");
     }
 }
