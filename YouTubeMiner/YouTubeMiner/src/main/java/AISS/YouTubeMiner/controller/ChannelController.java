@@ -50,7 +50,7 @@ public class ChannelController {
     RestTemplate restTemplate;
     
     @Operation(
-            summary = "Retrieve a Youtube channel by UserName",
+            summary = "Retrieve a Youtube channel by id",
             description= "Get a Youtube channel by specifying its id",
             tags = {"channel", "get"})
     @ApiResponses({
@@ -58,21 +58,21 @@ public class ChannelController {
             @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema())}),
             @ApiResponse(responseCode = "403", content = {@Content(schema = @Schema)})})
 
-    @GetMapping("/{forUsername}")
-    public Channel findChannel(@Parameter(description = "User's name of the channel ") @PathVariable String forUsername,
+    @GetMapping("/{id}")
+    public Channel findChannel(@Parameter(description = "User's id of the channel ") @PathVariable String id,
                                @Parameter(description = "Optional parameter to limit the number of videos")@RequestParam(required = false, defaultValue = "10") Integer sizeVideo,
                                @Parameter(description = "Optional parameter to limit the number of comments")@RequestParam(required = false, defaultValue = "10") Integer sizeComment
                             ) throws DisableCommentException, MaxValueException {
         if(sizeComment!=null && sizeVideo != null && (sizeComment < 0 || sizeVideo <0)){
             throw new MaxValueException();
         }
-        ChannelYouTube channelYoutube = channelService.findChannel(forUsername);
+        ChannelYouTube channelYoutube = channelService.findChannel(id);
         Channel channel= TransformChannel.transformChannel(channelYoutube);
 
         Integer maxVideo = sizeVideo==null? 10 : sizeVideo;
         Integer maxComment = sizeComment==null? 10: sizeComment;
 
-        List<AISS.YouTubeMiner.model.youtube.videoSnippet.VideoSnippet> videosYoutube = videoService.findVideos(forUsername,maxVideo);
+        List<AISS.YouTubeMiner.model.youtube.videoSnippet.VideoSnippet> videosYoutube = videoService.findVideos(id,maxVideo);
         List<Video> videos = new LinkedList<>();
 
         for(AISS.YouTubeMiner.model.youtube.videoSnippet.VideoSnippet videoYoutube:videosYoutube){
@@ -88,14 +88,14 @@ public class ChannelController {
     }
     @Operation(
             summary = "Insert a Channel in VideoMiner",
-            description= "Add a new Youtube channel (looked by its UserName in YouTube) whose data is passed in the body of the request in Json format",
+            description= "Add a new Youtube channel (looked by its id in YouTube) whose data is passed in the body of the request in Json format",
             tags = {"channels", "post"})
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Youtube channel", content = {@Content(schema = @Schema(implementation = Channel.class), mediaType = "application/json")}),
             @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema())}),
             @ApiResponse(responseCode = "403", content = {@Content(schema = @Schema)})})
-    @PostMapping("/{forUsername}")
-    public Channel postChannel(@Parameter(description = "User's name of the channel")@PathVariable String forUsername,
+    @PostMapping("/{id}")
+    public Channel postChannel(@Parameter(description = "User's id of the channel")@PathVariable String id,
                                 @Parameter(description = "Optional parameter to limit the number of videos")@RequestParam(required = false, defaultValue = "10") Integer sizeVideo,
                                @Parameter(description = "Optional parameter to limit the number of comments")@RequestParam(required = false, defaultValue = "10") Integer sizeComment
     ) throws DisableCommentException, MaxValueException {
@@ -104,7 +104,7 @@ public class ChannelController {
         }
         Integer maxVideo = sizeVideo==null? 10 : sizeVideo;
         Integer maxComment = sizeComment==null? 10: sizeComment;
-        Channel channel=findChannel(forUsername, maxVideo, maxComment);
+        Channel channel=findChannel(id, maxVideo, maxComment);
         String uri = "http://localhost:8080/videominer/channels";
 
         System.out.println(channel);
